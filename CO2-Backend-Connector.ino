@@ -13,6 +13,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   if (d1_Ready && (bkend.d1_isConfigured()) && (!bkend.busy)) {
+    // random numbers being used for testing purposes in this demonstration program
     bkend.sensor_Temperature = random(20);
     bkend.sensor_VOC = random(100);
     bkend.sensor_CO2 = random(100);

@@ -1,6 +1,5 @@
 #include "CO2_BackendConnector.h"
 #include "CO2_BackendCert.h"
-#include <ArduinoJson.h>
 
 WiFiClientSecure wifiSecure;
 HttpClient http_Client = HttpClient(wifiSecure, web_BackEnd_HOSTNAME, 443);

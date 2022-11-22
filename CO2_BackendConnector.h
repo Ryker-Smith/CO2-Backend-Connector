@@ -14,6 +14,7 @@
 #include <ESPAsyncWebServer.h>
 #include <Adafruit_Sensor.h>
 #include <ArduinoHttpClient.h>
+#include <ArduinoJson.h>
 
 #define config_StatusAddress 0 
 

@@ -1,13 +1,4 @@
-#include <EEPROM.h>
-#include <Arduino.h>
-#include <ESP8266WiFi.h>
-#include <WiFiClientSecure.h> 
-#include <ESP8266HTTPClient.h>
-#include <Hash.h>
-#include <ESPAsyncTCP.h>
-#include <ESPAsyncWebServer.h>
-#include <Adafruit_Sensor.h>
-#include <ArduinoHttpClient.h>
+
 #include "CO2_BackendConnector.h"
 
 bool d1_Ready=false;
