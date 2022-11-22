@@ -1,0 +1,90 @@
+README
+
+v0.007
+
+D1 DEVICE CONFIGURATION/WHAT THE CODE DOES
+Using this code, the device will establish a WiFI Access Point (AP) with a name such as TCFE-CO2-01-23 where 01-23 are the last 4 digits of the device MAC address. Note the device name!
+
+Connect to the AP, then start a browser at connect to http://192.168.7.1
+
+Connect to the AP, using the ('manufacturers default') password "1234567890".
+
+Provide the connection details for your Wi-Fi.
+
+After you submit the connection details, the device will disconnect from the AP and connect to your WiFi and then the back-end using the details provided.
+
+It will save a record there with its IPv4 address. The device will also save the WiFi connection details for when it is re-started. If there are too many errors, the device will reset itself to the 'factory' state, and restart the AP process so that you can retry the configuartion process.
+
+This process should be automatic when the device using this code is booted, though it may take a little time to complete.
+
+Monitoring the Serial port can be done at the pre-set speed of 115,200baud. This should only be necessary for debugging.
+
+USING THE CODE IN YOUR PROJECT
+(1) 
+Decompress the CO2_BackendConnector.zip file.
+
+(2)
+Put the uncompressed CO2_BackendConnector.cpp and CO2_BackendConnector.h files in the same folder as your project.
+
+(3)
+Include the necessary files in your .ino project file:
+
+#include <EEPROM.h>
+#include <Arduino.h>
+#include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h> 
+#include <ESP8266HTTPClient.h>
+#include <Hash.h>
+#include <ESPAsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+#include <Adafruit_Sensor.h>
+#include <ArduinoHttpClient.h>
+#include "CO2_BackendConnector.h"
+
+(3.5)
+There may be an issue with the library installation location under Windows. If the libraries required (from the above) are installed but errors still show, there are copies on Teams in General/Files/Class Materials/PDESN
+
+These files should be copied into the "libraries" folder where your Arduino programs are stored.
+
+Do NOT copy the CO2_BackendConnector library into the "libraries" folder.
+
+(4)
+Declare a CO2_BackendConnector object as simply as:
+CO2_BackendConnector bkend;
+
+(5)
+In your setup() call the configuration routine:
+eg
+d1_Ready=bkend.d1_ConfigureDevice(); // should return true
+
+(6)
+In your loop() you should ensure you're reading from a configured device, which isn't busy, get your sensor data, and POST to the back-end:
+eg
+if (d1_Ready && (bkend.d1_isConfigured()) && (!bkend.busy)) {
+    bkend.sensor_Temperature = <<READ_YOUR_SENSOR_HERE_OR_SIMILAR>>
+    bkend.d1_PostData("CELCIUS", String(bkend.sensor_Temperature) );
+}
+
+(7)
+If you don't want to POST to the back-end, there's also a web-server provided in the CO2_BackendConnector class.
+
+To use it:
+
+Query the back-end (presently at https://fachtnaroe.net/qndco2) to get the IPv4 of the device after config.
+eg
+https://fachtnaroe.net/qndco2?device=TCFE-CO2-7B-65&sensor=IPv4
+returns
+{'Status':'OK','device':'TCFE-CO2-7B-65','sensor':'IPv4','value':'78.231.215.43','time':'2021-11-17 23:36'}
+
+Then:
+Query the device directly at its IPv4 address, port 80. Data is in JSON format.
+
+(8) There is a debugging tool showing most recent API requests here:
+https://fachtnaroe.net/qndco2?cmd=debug
+
+(9) Reboot:
+Sending a http GET request to your device, requesting /athbhútáil will reboot a D1 with this version of code installed.
+
+This version of code is required to operate correctly with the sample App versions available at:
+
+https://github.com/Ryker-Smith/CO2-DeviceUnit-Controller.git
