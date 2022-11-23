@@ -1,5 +1,10 @@
-
+/* This is a sample usage program for the CO2-Backend-Connector.
+ * Replace this .ino file with your own project program.
+ * start by referencing the library, which should be in the same 
+ * folder as your .ino program.
+  */
 #include "CO2_BackendConnector.h"
+
 
 bool d1_Ready=false;
 
