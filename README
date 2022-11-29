@@ -1,23 +1,21 @@
 README
 
-v0.007
+v0.008
 
 D1 DEVICE CONFIGURATION/WHAT THE CODE DOES
 Using this code, the device will establish a WiFI Access Point (AP) with a name such as TCFE-CO2-01-23 where 01-23 are the last 4 digits of the device MAC address. Note the device name!
 
-Connect to the AP, then start a browser at connect to http://192.168.7.1
+Connect your phone to the AP, using the ('manufacturers default') password "1234567890". Then start a browser and connect to http://192.168.7.1
 
-Connect to the AP, using the ('manufacturers default') password "1234567890".
+When connected to the AP configuration web page, provide the connection details for your Wi-Fi.
 
-Provide the connection details for your Wi-Fi.
+After you submit the WiFi connection details, the device will disconnect from the AP, will connect to your WiFi and then the back-end using the details provided. You can connect your mobile device to your normal connection after that.
 
-After you submit the connection details, the device will disconnect from the AP and connect to your WiFi and then the back-end using the details provided.
+The device will save a record at the backend with its IPv4 address. The device will also save the WiFi connection details for when it is re-started. If there are too many errors, the device will reset itself to the 'factory' state, and restart the AP process so that you can retry the configuartion process. That failure mode takes about 3 minutes.
 
-It will save a record there with its IPv4 address. The device will also save the WiFi connection details for when it is re-started. If there are too many errors, the device will reset itself to the 'factory' state, and restart the AP process so that you can retry the configuartion process.
+This connection process is automatic when the device using this code is booted, though it may take a little time to complete.
 
-This process should be automatic when the device using this code is booted, though it may take a little time to complete.
-
-Monitoring the Serial port can be done at the pre-set speed of 115,200baud. This should only be necessary for debugging.
+Monitoring the Serial port can be done at the pre-set speed of 115,200baud. This should only be necessary for debugging. If you have a mobile device with suitable program you can use that to access the device data via the back-end, though you can also access the device directly iusing the IPv4 address saved to the backend.
 
 USING THE CODE IN YOUR PROJECT
 (1) 
